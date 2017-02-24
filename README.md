@@ -12,7 +12,7 @@ import ReactDOM from 'react-dom'
 
 ReactDOM.render(
     <InputHints
-        waitBeforeDeleteMs={3000}
+        waitBeforeDeleteMs={2000}
         writeSpeedMs={100}
         deleteSpeedMs={60}
         placeholders={[
