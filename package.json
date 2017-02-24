@@ -34,5 +34,8 @@
     "eslint-plugin-react": "6.10.0",
     "rimraf": "2.6.1",
     "umd": "3.0.1"
+  },
+  "peerDependenies": {
+    "react": "^0.14.0 || ^15.0"
   }
 }
