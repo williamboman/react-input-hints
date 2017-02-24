@@ -1,0 +1,33 @@
+{
+  "name": "react-input-hints",
+  "version": "1.0.0",
+  "description": "Animates input placeholders to make it look like they are being typed in realtime. Makes it possible to nicely display multiple placeholder strings per input element.",
+  "main": "dist/InputHints.js",
+  "scripts": {
+    "build": "rm -rf dist/ && mkdir dist && babel src/InputHints.js | umd -c InputHints > dist/InputHints.js",
+    "test": "eslint src/"
+  },
+  "keywords": [
+    "react",
+    "component",
+    "input",
+    "placeholders",
+    "hint",
+    "hints"
+  ],
+  "author": "William Boman <william@redwill.se>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "6.23.0",
+    "babel-eslint": "7.1.1",
+    "babel-plugin-transform-class-properties": "6.23.0",
+    "babel-plugin-transform-decorators": "6.22.0",
+    "babel-plugin-transform-object-rest-spread": "6.23.0",
+    "babel-preset-es2015": "6.22.0",
+    "babel-preset-react": "6.23.0",
+    "eslint": "3.16.1",
+    "eslint-plugin-react": "6.10.0",
+    "rimraf": "2.6.1",
+    "umd": "3.0.1"
+  }
+}

@@ -1,0 +1,51 @@
+---
+
+root: true
+
+plugins:
+  - react
+
+env:
+  browser: true
+  es6: true
+  commonjs: true
+
+parser: 'babel-eslint'
+
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+    experimentalObjectRestSpread: true
+  ecmaVersion: 6
+  jsx: true
+
+rules:
+  block-spacing: [2, always]
+  brace-style: [2, 1tbs]
+  comma-dangle: [2, always-multiline]
+  curly: [2, all]
+  eqeqeq: 2
+  indent: [2, 4]
+  key-spacing: [2, {beforeColon: false, afterColon: true}]
+  keyword-spacing: [2, {before: true, after: true}]
+  linebreak-style: [2, unix]
+  no-console: 2
+  no-control-regex: 0
+  no-inner-declarations: 2
+  no-invalid-regexp: 2
+  no-irregular-whitespace: 2
+  no-multiple-empty-lines: [2, {max: 2}]
+  no-trailing-spaces: 2
+  no-unexpected-multiline: 2
+  no-unreachable: 2
+  object-curly-spacing: [2, never]
+  quotes: [2, single, {allowTemplateLiterals: true}]
+  semi: [2, never]
+  space-before-blocks: 2
+  space-before-function-paren: [2, {anonymous: always, named: never}]
+  space-infix-ops: 2
+  spaced-comment: [2, always]
+
+extends:
+  - eslint:recommended
+  - plugin:react/recommended
