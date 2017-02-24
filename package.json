@@ -1,6 +1,7 @@
 {
   "name": "react-input-hints",
   "version": "1.0.0",
+  "homepage": "https://github.com/williamboman/react-input-hints",
   "description": "Animates input placeholders to make it look like they are being typed in realtime. Makes it possible to nicely display multiple placeholder strings per input element.",
   "main": "dist/InputHints.js",
   "scripts": {
