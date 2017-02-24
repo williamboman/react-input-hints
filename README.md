@@ -25,6 +25,10 @@ ReactDOM.render(
 
 ## Props
 
+### `placeholders` | `array`
+
+The placeholders to print out, in order of appearance.
+
 ### `waitBeforeDeleteMs` | `number` | default: 2000
 
 Amount of milliseconds placeholders will be fully readable before starting
