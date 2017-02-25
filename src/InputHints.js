@@ -116,7 +116,7 @@ class InputHints extends Component {
                 this.setState({
                     isDeleting: true,
                 })
-                setTimeout(() => this.queueTick(START_DELETE))
+                this.queueTick(START_DELETE)
             } else {
                 this.setState({
                     currentCharPos: nextCharPos,

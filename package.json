@@ -10,6 +10,7 @@
   "main": "dist/InputHints.js",
   "scripts": {
     "build": "rm -rf dist/ && mkdir dist && babel src/InputHints.js | umd -c InputHints > dist/InputHints.js",
+    "prepublish": "npm run build",
     "test": "eslint src/"
   },
   "keywords": [
@@ -26,13 +27,11 @@
     "babel-cli": "6.23.0",
     "babel-eslint": "7.1.1",
     "babel-plugin-transform-class-properties": "6.23.0",
-    "babel-plugin-transform-decorators": "6.22.0",
     "babel-plugin-transform-object-rest-spread": "6.23.0",
     "babel-preset-es2015": "6.22.0",
     "babel-preset-react": "6.23.0",
     "eslint": "3.16.1",
     "eslint-plugin-react": "6.10.0",
-    "rimraf": "2.6.1",
     "umd": "3.0.1"
   },
   "peerDependenies": {
