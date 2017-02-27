@@ -1,4 +1,4 @@
-<img align="center" alt="react-input-hints" src="example.gif" />
+<img align="center" alt="react-input-hints" src="https://raw.githubusercontent.com/williamboman/react-input-hints/gh-pages/example.gif" />
 
 *Animates input placeholders to make it look like they are being typed in realtime.*
 
@@ -21,6 +21,12 @@ ReactDOM.render(
         ]} />,
     document.body
 )
+```
+
+## Installation
+
+```sh
+$ npm install react-input-hints
 ```
 
 ## Props
