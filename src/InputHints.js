@@ -88,6 +88,10 @@ class InputHints extends Component {
         })
     }
 
+    _getTextInputNode() {
+        return this.refTextInput
+    }
+
     tick() {
         const {placeholders} = this.props
         const {
@@ -138,10 +142,23 @@ class InputHints extends Component {
         const placeholder = currentPlaceholder.slice(0, currentCharPos)
 
         return (
-            <input placeholder={placeholder} {...inputProps} />
+            <input ref={(e) => this.refTextInput = e} placeholder={placeholder} {...inputProps} />
         )
     }
 
 }
 
-module.exports = InputHints
+function inputWrapper(WrappedComponent) {
+    class Input extends Component {
+        focus() { this.c._getTextInputNode().focus() }
+        blur() { this.c._getTextInputNode().blur() }
+
+        render() {
+            return <WrappedComponent {...this.props} ref={(c) => this.c = c} />
+        }
+    }
+    Input.displayName = WrappedComponent.displayName || 'Component'
+    return input
+}
+
+module.exports = inputWrapper(InputHints)
