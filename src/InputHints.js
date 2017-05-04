@@ -150,15 +150,17 @@ class InputHints extends Component {
 
 function inputWrapper(WrappedComponent) {
     class Input extends Component {
+        /* eslint-disable brace-style */
         focus() { this.c._getTextInputNode().focus() }
         blur() { this.c._getTextInputNode().blur() }
+        /* eslint-enable brace-style */
 
         render() {
             return <WrappedComponent {...this.props} ref={(c) => this.c = c} />
         }
     }
     Input.displayName = WrappedComponent.displayName || 'Component'
-    return input
+    return Input
 }
 
 module.exports = inputWrapper(InputHints)
