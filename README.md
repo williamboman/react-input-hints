@@ -12,9 +12,6 @@ import ReactDOM from 'react-dom'
 
 ReactDOM.render(
     <InputHints
-        waitBeforeDeleteMs={2000}
-        writeSpeedMs={100}
-        deleteSpeedMs={60}
         placeholders={[
             'Enter your username here...',
             'Usernames can be 7-18 characters long.',
@@ -22,6 +19,18 @@ ReactDOM.render(
     document.body
 )
 ```
+
+## Component's ref API
+
+The component implements an API that makes it possible to interact with the DOM node itself. Use [`ref`](https://facebook.github.io/react/docs/refs-and-the-dom.html)s to access these methods.
+
+### `focus()`
+
+Brings focus on the input element.
+
+### `blur()`
+
+Removes focus from the input element.
 
 ## Installation
 
@@ -51,6 +60,10 @@ Same as `writeSpeedMs` (see above), but for when deleting characters.
 ## Tips
 
 Use the [`selector:placeholder`](http://css-tricks.com/snippets/css/style-placeholder-text/) CSS pseudo-class to style your placeholders!
+
+## Todos
+
+- Make it support arbitrary components via props.
 
 ## License
 
