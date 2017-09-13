@@ -34,6 +34,7 @@
     "umd": "3.0.1"
   },
   "peerDependenies": {
-    "react": "^0.14.0 || ^15.0"
+    "react": ">=0.14",
+    "prop-types": "~0.15"
   }
 }
