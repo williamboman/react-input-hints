@@ -1,5 +1,6 @@
 const React = require('react')
-const {Component, PropTypes} = React
+const {Component} = React
+const PropTypes = require('prop-types')
 
 const TICK_INIT = 'TICK_INIT'
 const TICK_WRITE = 'TICK_WRITE'
