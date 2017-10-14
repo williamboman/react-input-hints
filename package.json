@@ -33,8 +33,7 @@
     "eslint-plugin-react": "6.10.0",
     "umd": "3.0.1"
   },
-  "peerDependenies": {
-    "react": ">=0.14",
-    "prop-types": "~0.15"
+  "dependencies": {
+    "react-typewriting": "~1"
   }
 }
