@@ -7,22 +7,31 @@
 ## Usage
 
 ```jsx
-import React from 'react'
-import ReactDOM from 'react-dom'
-
-ReactDOM.render(
-    <InputHints
-        placeholders={[
-            'Enter your username here...',
-            'Usernames can be 7-18 characters long.',
-        ]} />,
-    document.body
+<InputHints
+    placeholders={[
+        'Enter your username here...',
+        'Usernames can be 7-18 characters long.',
+    ]} />
 )
+```
+
+```jsx
+const Aux = ({children}) => children
+
+<InputHints
+    component={Aux}
+    placeholderProp='children'
+    placeholders={[
+        'This will render the <Aux> component.',
+        'With the current placeholder value passed as <Aux children={currentPlaceholder} />',
+    ]} />
 ```
 
 ## Component's ref API
 
 The component implements an API that makes it possible to interact with the DOM node itself. Use [`ref`](https://facebook.github.io/react/docs/refs-and-the-dom.html)s to access these methods.
+
+*This API is not guaranteed to work correctly if passing custom component as prop.*
 
 ### `focus()`
 
@@ -40,30 +49,34 @@ $ npm install react-input-hints
 
 ## Props
 
-### `placeholders` | `array`
+### `placeholders` | `Array`
 
 The placeholders to print out, in order of appearance.
 
-### `waitBeforeDeleteMs` | `number` | default: 2000
+### `waitBeforeDeleteMs` | `Number` | default: 2000
 
 Amount of milliseconds placeholders will be fully readable before starting
 to delete the placeholder.
 
-### `writeSpeedMs` | `number` | default: 100
+### `writeSpeedMs` | `Number` | default: 100
 
 The absolute slowest speed to wait between printing characters (characters are printed at random intervals that span from 0 ms to whatever this config value is set to).
 
-### `deleteSpeedMs` | `number` | default: 60
+### `deleteSpeedMs` | `Number` | default: 60
 
 Same as `writeSpeedMs` (see above), but for when deleting characters.
+
+### `component` | `Component`, `Function`, `String` | default: 'input'
+
+A `Component`, stateless function, or string corresponding to a default JSX element.
+
+### `placeholderProp` | `String` | default: 'placeholder'
+
+The prop to pass the current placeholder value to.
 
 ## Tips
 
 Use the [`selector:placeholder`](http://css-tricks.com/snippets/css/style-placeholder-text/) CSS pseudo-class to style your placeholders!
-
-## Todos
-
-- Make it support arbitrary components via props.
 
 ## License
 

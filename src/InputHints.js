@@ -7,13 +7,15 @@ const TICK_WRITE = 'TICK_WRITE'
 const TICK_DELETE = 'TICK_DELETE'
 const START_DELETE = 'START_DELETE'
 
-function getInputProps({...inputProps}) {
-    delete inputProps.placeholders
-    delete inputProps.waitBeforeDeleteMs
-    delete inputProps.writeSpeedMs
-    delete inputProps.deleteSpeedMs
-    delete inputProps.placeholder
-    return inputProps
+function getInputProps({...props}) {
+    delete props.placeholders
+    delete props.waitBeforeDeleteMs
+    delete props.writeSpeedMs
+    delete props.deleteSpeedMs
+    delete props.placeholder
+    delete props.placeholderProp
+    delete props.component
+    return props
 }
 
 class InputHints extends Component {
@@ -23,17 +25,25 @@ class InputHints extends Component {
         waitBeforeDeleteMs: PropTypes.number,
         writeSpeedMs: PropTypes.number,
         deleteSpeedMs: PropTypes.number,
+        placeholderProp: PropTypes.string,
+        component: PropTypes.oneOfType([
+            PropTypes.func,
+            PropTypes.string,
+        ]),
     }
 
     static defaultProps = {
         waitBeforeDeleteMs: 2000,
         writeSpeedMs: 100,
         deleteSpeedMs: 60,
+        placeholderProp: 'placeholder',
+        component: 'input',
     }
 
     constructor(props) {
         super(props)
-        this.tick = this.tick.bind(this)
+        this._ticker = null
+        this._ref = null
         this.state = {
             currentPlaceholderIdx: 0,
             currentCharPos: 0,
@@ -43,25 +53,34 @@ class InputHints extends Component {
     }
 
     componentDidMount() {
-        this.queueTick(TICK_INIT)
+        this._queueTick(TICK_INIT)
     }
 
     componentWillUnmount() {
-        clearTimeout(this.ticker)
+        clearTimeout(this._ticker)
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({
             inputProps: getInputProps(nextProps),
         })
+        if (this.props.placeholders !== nextProps.placeholders) {
+            clearTimeout(this._ticker)
+            this.setState({
+                currentPlaceholderIdx: 0,
+                currentCharPos: 0,
+                isDeleting: false,
+            })
+            this._queueTick(TICK_INIT)
+        }
     }
 
-    randomizeTimeout(ms) {
+    _randomizeTimeout(ms) {
         // TODO: probably should implement a minimum timeout
         return Math.random() * ms
     }
 
-    queueTick(type) {
+    _queueTick(type) {
         const {
             writeSpeedMs,
             deleteSpeedMs,
@@ -70,15 +89,15 @@ class InputHints extends Component {
 
         const timeout =
             type === TICK_INIT ? 0 :
-            type === TICK_WRITE ? this.randomizeTimeout(writeSpeedMs) :
-            type === TICK_DELETE ? this.randomizeTimeout(deleteSpeedMs) :
+            type === TICK_WRITE ? this._randomizeTimeout(writeSpeedMs) :
+            type === TICK_DELETE ? this._randomizeTimeout(deleteSpeedMs) :
             type === START_DELETE ? waitBeforeDeleteMs :
             0 // ¯\_(ツ)_/¯
 
-        this.ticker = setTimeout(this.tick, timeout)
+        this._ticker = setTimeout(this._tick, timeout)
     }
 
-    moveToNextPlaceholder() {
+    _moveToNextPlaceholder() {
         const {placeholders} = this.props
         const {currentPlaceholderIdx} = this.state
         const nextPlaceholderIdx = currentPlaceholderIdx + 1
@@ -89,11 +108,7 @@ class InputHints extends Component {
         })
     }
 
-    _getTextInputNode() {
-        return this.refTextInput
-    }
-
-    tick() {
+    _tick = () => {
         const {placeholders} = this.props
         const {
             currentPlaceholderIdx,
@@ -109,30 +124,40 @@ class InputHints extends Component {
 
         if (isDeleting) {
             if (nextCharPos < 0) {
-                this.moveToNextPlaceholder()
+                this._moveToNextPlaceholder()
             } else {
                 this.setState({
                     currentCharPos: nextCharPos,
                 })
             }
-            this.queueTick(TICK_DELETE)
+            this._queueTick(TICK_DELETE)
         } else {
             if (nextCharPos > currentPlaceholder.length) {
                 this.setState({
                     isDeleting: true,
                 })
-                this.queueTick(START_DELETE)
+                this._queueTick(START_DELETE)
             } else {
                 this.setState({
                     currentCharPos: nextCharPos,
                 })
-                this.queueTick(TICK_WRITE)
+                this._queueTick(TICK_WRITE)
             }
         }
     }
 
+    _registerRef = (ref) => this._ref = ref
+
+    focus() {
+        this._ref.focus()
+    }
+
+    blur() {
+        this._ref.blur()
+    }
+
     render() {
-        const {placeholders} = this.props
+        const {placeholders, component} = this.props
         const {
             currentPlaceholderIdx,
             currentCharPos,
@@ -142,26 +167,23 @@ class InputHints extends Component {
         const currentPlaceholder = placeholders[currentPlaceholderIdx]
         const placeholder = currentPlaceholder.slice(0, currentCharPos)
 
-        return (
-            <input ref={(e) => this.refTextInput = e} placeholder={placeholder} {...inputProps} />
-        )
-    }
+        const componentProps = {
+            ...inputProps,
+            [this.props.placeholderProp]: placeholder,
+        }
 
-}
-
-function inputWrapper(WrappedComponent) {
-    class Input extends Component {
-        /* eslint-disable brace-style */
-        focus() { this.c._getTextInputNode().focus() }
-        blur() { this.c._getTextInputNode().blur() }
-        /* eslint-enable brace-style */
-
-        render() {
-            return <WrappedComponent {...this.props} ref={(c) => this.c = c} />
+        if (typeof component === 'string') {
+            return (
+                <component ref={this._registerRef} {...componentProps} />
+            )
+        } else {
+            const Component = component
+            return (
+                <Component ref={this._registerRef} {...componentProps} />
+            )
         }
     }
-    Input.displayName = WrappedComponent.displayName || 'Component'
-    return Input
+
 }
 
-module.exports = inputWrapper(InputHints)
+module.exports = InputHints
