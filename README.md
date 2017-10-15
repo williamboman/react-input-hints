@@ -16,14 +16,14 @@
 ```
 
 ```jsx
-const Aux = ({children}) => children
+const Title = ({title}) => <h1>{title}</h1>
 
 <InputHints
-    component={Aux}
-    placeholderProp='children'
+    component={Title}
+    placeholderProp='title'
     placeholders={[
-        'This will render the <Aux> component.',
-        'With the current placeholder value passed as <Aux children={currentPlaceholder} />',
+        'This will render the <Title> component,',
+        'with the current placeholder value passed as the "title" prop.',
     ]} />
 ```
 
