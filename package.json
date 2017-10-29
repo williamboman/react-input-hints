@@ -1,6 +1,6 @@
 {
   "name": "react-input-hints",
-  "version": "3.0.0-rc.2",
+  "version": "3.0.0-rc.3",
   "homepage": "https://github.com/williamboman/react-input-hints",
   "repository": {
     "type": "git",
@@ -33,8 +33,7 @@
     "eslint-plugin-react": "6.10.0",
     "umd": "3.0.1"
   },
-  "peerDependenies": {
-    "react": ">=0.14",
-    "prop-types": "~0.15"
+  "dependencies": {
+    "react-typewriting": "0.0.1-pre.1"
   }
 }
