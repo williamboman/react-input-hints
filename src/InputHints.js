@@ -7,6 +7,8 @@ export default function InputHints({placeholders, ...props}) {
     return (
         <Typewriting
             waitBeforeDeleteMs={2000}
+            component='input'
+            stringProp='placeholder'
             strings={placeholders} />
     )
 }
