@@ -12,3 +12,7 @@ export default function InputHints({placeholders, ...props}) {
             strings={placeholders} />
     )
 }
+
+InputHints.propTypes = {
+    placeholders: PropTypes.arrayOf(PropTypes.string).isRequired,
+}
