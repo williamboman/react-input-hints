@@ -2,7 +2,7 @@
 
 *Animates input placeholders to make it look like they are being typed in realtime.*
 
-[![Build Status](https://travis-ci.org/williamboman/react-input-hints.svg?branch=gh-pages)](https://travis-ci.org/williamboman/react-input-hints/branches)
+[![Build Status](https://travis-ci.org/williamboman/react-input-hints.svg?branch=master)](https://travis-ci.org/williamboman/react-input-hints)
 
 ## Usage
 
